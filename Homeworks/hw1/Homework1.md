@@ -1,4 +1,4 @@
-# CSCI 4430 Homework 1
+# CSCI 4430 Homework 1 - Hanson Ma
 
 ## Problem 1
 
@@ -23,11 +23,11 @@ The language `(a|b)*a(a|b)(a|b)` is "any sequence of 'a' and 'b' as long as the 
 
 ### Part d
 
-TODO
+All strings of 'a' and 'b', but with exactly three 'b's
 
 ### Part e
 
-TODO
+Strings of 'a' and 'b' with even numbers of both
 
 ## Problem 2
 
@@ -50,6 +50,45 @@ no
 ### Part c
 
 also no
+
+## Problem 3
+
+### Part a
+
+We can prove ambiguity by showing that for some generated string, there are two or more different parse trees can be generated
+
+*For shorthand let `tn` = $\theta_n$, and `e` = $expr$*
+
+First tree:
+```
+  e
+  e    tn e
+e tn e tn e
+id tn id tn id
+```
+
+Second tree:
+```
+e
+e tn   e
+e tn e tn e
+id tn id tn id
+```
+
+### Part b
+
+Following the same shorthand:
+
+```
+Expr -> term1 t1 Expr | term1
+term1 -> term2 t2 term1 | term2
+term2 -> term3 t3 term2 | term3
+term3 -> term4 t4 term3 | term4
+...
+term_n -> term_n+1 t_n+1 term_n | term_n+1
+term_n+1 -> term_f* | term_f
+term_f -> id(Expr)
+```
 
 ## Problem 4
 
@@ -83,9 +122,14 @@ E $$
 
 ### Part c
 
+The active routines are:
 
 
-
+- P -> E $$
+- E -> (EEs)
+- Es -> EEs
+- E -> ' E
+```
 
 ## Problem 5
 
