@@ -1,11 +1,11 @@
-;; Contract: helper? (list ls) -> bool
-;; Purpose: if a list is non-decreasing list
-;; Example: (helper? '(1 2 3 2 4 1 2)) should produce #f
+;; Contract: checkDecrease? (list ls) -> bool
+;; Purpose: check if a list is non-decreasing list
+;; Example: (checkDecrease? '(1 2 3 2 4 1 2)) should produce #f
 ;; Definition:
-(define (helper? lst)
-  (if (< (length lst) 2) #t
-      (and (<= (car lst) (cadr lst))
-           (helper? (cdr lst))
+(define (checkDecrease? ls)
+  (if (< (length ls) 2) #t
+      (and (<= (car ls) (cadr ls))
+           (checkDecrease? (cdr ls))
       )
   )
 )
@@ -17,7 +17,7 @@
 (define (isNonDecrease ls)
   (cond 
         ((null? ls) #f)
-        ((helper? (car ls)) (car ls))
+        ((checkDecrease? (car ls)) (car ls))
         (else (isNonDecrease (cdr ls)))
         )
   )
@@ -36,20 +36,20 @@
               )
              (letrec
                  (
-                  (currentSym (lambda () (list-ref ls i)))
-                  (currentX (lambda () (cond
-                                ((eq? x #t) (cons (cons (currentSym) '()) '()))
+                  (a (lambda () (list-ref ls i)))
+                  (b (lambda () (cond
                                 ((eq? x #f) '())
-                                (else (map (lambda (z) (cons (currentSym) z)) x)))
+                                ((eq? x #t) (cons (cons (a) '()) '()))
+                                (else (map (lambda (z) (cons (a) z)) x)))
                             ))
-                  (currentY (lambda () (cond
-                               ((eq? y #t) '())
+                  (c (lambda () (cond
                                ((eq? y #f) '())
+                               ((eq? y #t) '())
                                (else y)
                                )
                             ))
                  )
-               (append (currentX) (currentY))
+               (append (b) (c))
                )
              )
             #f
