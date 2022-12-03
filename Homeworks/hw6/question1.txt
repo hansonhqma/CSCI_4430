@@ -1,0 +1,10 @@
+Definition by cases on E::= x | \x. E1 | E1 E2
+
+interpret(x) = x
+interpret(\x.E1) = let f = interpret(E1) -> \x.f
+interpret(E1 E2) = in case E1 of
+                    \x.E -> interpret(E[E2/x])
+                    _ -> let y = interpret(E1) in
+                            if y == E1 then let z = interpret(E2) in
+                                if z == E2 then E1 E2 else E1 z
+                            else y E2
